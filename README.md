@@ -16,19 +16,19 @@ A bidirectional adapter service that converts between MCP (Model Context Protoco
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    HTTP Configuration API                   │
-│           POST /configure (MCP endpoint only)               │
+│           POST /register (MCP endpoint only)                │
 └─────────────────────┬───────────────────────────────────────┘
                       │
 ┌─────────────────────▼───────────────────────────────────────┐
 │                 MCP-Opal Proxy Service                      │
-│  ┌─────────────────┐    ┌─────────────────┐                │
-│  │   MCP Discovery │◄──►│   Opal Tools    │                │
-│  │   (tools/list)  │    │   SDK           │                │
-│  └─────────────────┘    └─────────────────┘                │
-│  ┌─────────────────┐    ┌─────────────────┐                │
-│  │  Dynamic Tool   │    │  Protocol       │                │
-│  │  Registry       │    │  Translator     │                │
-│  └─────────────────┘    └─────────────────┘                │
+│  ┌─────────────────┐    ┌─────────────────┐                 │
+│  │   MCP Discovery │◄──►│   Opal Tools    │                 │
+│  │   (tools/list)  │    │   SDK           │                 │
+│  └─────────────────┘    └─────────────────┘                 │
+│  ┌─────────────────┐    ┌─────────────────┐                 │
+│  │  Dynamic Tool   │    │  Protocol       │                 │
+│  │  Registry       │    │  Translator     │                 │
+│  └─────────────────┘    └─────────────────┘                 │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -48,7 +48,7 @@ docker-compose up -d
 
 ```bash
 # Configure tools by discovering them from an MCP server
-curl -X POST http://localhost:8000/configure \
+curl -X POST http://localhost:8000/register \
   -H "Content-Type: application/json" \
   -d '"http://your-mcp-server:3000"'
 ```
@@ -73,7 +73,7 @@ curl -X POST http://localhost:8000/tools/weather_lookup \
 
 ### Configuration Endpoints
 
-#### POST /configure
+#### POST /register
 Configure MCP tools by discovering them from an MCP server.
 
 **Request Body:**
@@ -115,7 +115,7 @@ Health check endpoint.
 #### GET /status
 Get adapter status and configuration.
 
-#### DELETE /configure/{tool_name}
+#### DELETE /tools/{tool_name}
 Remove a configured tool.
 
 ## MCP Discovery Process
@@ -349,4 +349,4 @@ async def discover_mcp_tools(mcp_endpoint: str):
 
 ## License
 
-MIT License - see LICENSE file for details. 
+MIT License - see LICENSE file for details.
