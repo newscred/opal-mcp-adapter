@@ -13,6 +13,10 @@ def json_schema_to_pydantic(schema: Dict[str, Any], class_name: str) -> BaseMode
     field_definitions = {}
 
     for field_name, field_schema in properties.items():
+        # TODO: Support underscores in field names
+        if field_name.startswith("_"):
+            continue
+
         field_type = _get_python_type(field_schema)
         default_value = field_schema.get("default", ...)
 
