@@ -1,6 +1,6 @@
 [project]
 name = "opal-mcp-adapter"
-version = "0.0.4"
+version = "0.0.5"
 description = "Bidirectional adapter for converting between MCP and Opal tools"
 readme = "opal_mcp_adapter/README.md"
 requires-python = ">=3.10"
