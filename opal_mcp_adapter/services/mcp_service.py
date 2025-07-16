@@ -41,13 +41,17 @@ class MCPService:
 
                 # Store for reference
                 adapter_state.mcp_tools[config.name] = config
-                adapter_state.dynamic_tool_functions[config.name] = registered_func
+                adapter_state.dynamic_tool_functions[
+                    config.name
+                ] = registered_func
 
                 registered_tools.append(config.name)
                 logger.info(f"Configured MCP tool as Opal tool: {config.name}")
 
             except Exception as e:
-                logger.error(f"Failed to configure tool {tool_info.name}: {str(e)}")
+                logger.error(
+                    f"Failed to configure tool {tool_info.name}: {str(e)}"
+                )
                 # Continue with other tools even if one fails
                 continue
 
