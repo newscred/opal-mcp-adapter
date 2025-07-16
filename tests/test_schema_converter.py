@@ -61,3 +61,27 @@ def test_parameter_descriptions_are_empty():
         assert field.description == "", (
             f"Field {field_name} should have empty description"
         )
+
+
+def test_fields_with_leading_underscore_are_ignored():
+    """Test that fields with leading underscores are ignored"""
+    from opal_mcp_adapter.utils.schema_converter import json_schema_to_pydantic
+
+    schema = {
+        "type": "object",
+        "properties": {
+            "_foo": {"type": "string"},
+            "__bar": {"type": "integer"},
+            "baz": {"type": "boolean"}
+        },
+        "required": ["_foo", "__bar", "baz"]
+    }
+
+    model_class = json_schema_to_pydantic(schema, "IgnoreUnderscoreModel")
+    # Only 'baz' should be present
+    assert "baz" in model_class.model_fields
+    assert "_foo" not in model_class.model_fields
+    assert "__bar" not in model_class.model_fields
+    # Should instantiate with only 'baz'
+    instance = model_class(baz=True)
+    assert instance.baz is True
