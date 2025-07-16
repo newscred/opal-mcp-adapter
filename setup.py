@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="opal-mcp-adapter",
-    version="0.0.4",
+    version="0.0.5",
     description=(
         "Bidirectional adapter for converting between MCP and Opal tools"
     ),
